@@ -1,0 +1,7 @@
+<main>
+  <app-order-header [refreshes]="refreshes()" />
+  <button id="refresh" type="button" (click)="refresh()">Refresh</button>
+  <app-promo-banner [refreshes]="refreshes()" />
+  <app-order-table [refreshes]="refreshes()" />
+  <app-shipping-estimate [refreshes]="refreshes()" />
+</main>
