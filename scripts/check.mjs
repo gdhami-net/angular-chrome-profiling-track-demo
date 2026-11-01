@@ -1,4 +1,4 @@
-// Builds the app three ways, records a Chrome trace of each, and checks
+// Builds the app five ways, records a Chrome trace of each, and checks
 // what the Angular track holds. Run with: npm run check
 import { execSync } from 'node:child_process';
 import { mkdirSync, readdirSync, readFileSync } from 'node:fs';
