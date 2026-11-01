@@ -70,6 +70,8 @@ check(prodCalls.ngGlobal === 'undefined', 'there is no ng global to call from th
 const bundle = readFileSync(`dist/prod/browser/${readdirSync('dist/prod/browser').find((f) => /^main-.*\.js$/.test(f))}`, 'utf8');
 const body = bundle.match(/function \w+\(\)\{return \w+\("Chrome DevTools profiling"\),\(\)=>\{\}\}/);
 check(body !== null, `enableProfiling compiles to an empty stub: ${body?.[0]}`);
+const leftovers = ['\\u{1F170}', 'Change detection ', 'Bootstrap component', 'timeStamp'].filter((s) => bundle.includes(s));
+check(leftovers.length === 0, 'the profiler itself is not in the bundle (no track name, entry names or timeStamp calls)');
 
 // 4. Many small components: 1,000 OrderRow children under OrderTable.
 console.log('-- 1,000 row components, development vs production');

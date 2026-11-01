@@ -25,13 +25,15 @@ Chrome (page load plus three clicks on Refresh), and asserts:
 - **Production build, same `main.ts`:** zero entries on the Angular track, no
   `ng` global, and the minified `enableProfiling` is an empty stub
   (`function wc(){return Tr("Chrome DevTools profiling"),()=>{}}`): the profiler
-  is tree-shaken out, only a feature-usage mark is left.
+  is tree-shaken out, only a feature-usage mark is left. The track name, the
+  entry names and every `timeStamp` call are absent from the bundle.
 - **1,000 small row components** (`many-rows` configurations): `_OrderRow` has
   8,000 entries and the slow component still has the most self time. It also
   prints change detection time per click, dev with the track against production
   (not asserted; it depends on the machine).
 
-Real output on the machine it was written on:
+Real output on the machine it was written on (timings vary with machine load;
+a later run on a busy machine printed about twice these milliseconds, same verdicts):
 
 ```
 -- development build, enableProfiling() before bootstrap
@@ -58,6 +60,7 @@ PASS  the app ran: estimateDays() was called 4 times
 PASS  the trace has 0 entries on the Angular track
 PASS  there is no ng global to call from the console
 PASS  enableProfiling compiles to an empty stub: function wc(){return Tr("Chrome DevTools profiling"),()=>{}}
+PASS  the profiler itself is not in the bundle (no track name, entry names or timeStamp calls)
 -- 1,000 row components, development vs production
      _ShippingEstimate    self   143.4 ms   total   143.4 ms   entries 9
      _OrderTable          self    38.2 ms   total    63.8 ms   entries 9
